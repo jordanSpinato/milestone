@@ -1,0 +1,148 @@
+﻿@using System.Collections
+@using StartingFresh.Controllers
+@using StartingFresh.Models
+@model StartingFresh.Models.MilestoneModel
+
+
+@{
+    ViewBag.Title = "Milestones";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<h2>Milestone List</h2>
+
+<div>
+    @Html.ActionLink("Create New", "Create")
+</div>
+
+
+
+<table class="table table-striped">
+
+    <tr>
+        <th>
+            <script src="~/Scripts/jquery.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#checkBoxAll').click(function(event) { //on click
+                        if (this.checked) { // check select status
+                            $('.checkBoxId').each(function() { //loop through each checkbox
+                                this.checked = true; //select all checkboxes with class "checkbox1"
+                            });
+                        } else {
+                            $('.checkBoxId').each(function() { //loop through each checkbox
+                                this.checked = false; //deselect all checkboxes with class "checkbox1"
+                            });
+                        }
+                    });
+                });
+            </script>
+
+            <input type="checkbox" id="checkBoxAll"/>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalProjectDays)
+        </th>
+        <th>
+            Days Remaining
+        </th>
+        <th>
+            Other Options
+        </th>
+    </tr>
+
+    @using (Html.BeginForm("DeleteSelected", "Milestone", FormMethod.Post, new {id= "deleteSelected"}))
+    {
+
+
+        foreach (var item in Model.Milestones)
+        {
+            /* calculate the amount of days remaining */
+            var color = "";
+            var today = DateTime.Now;
+            var todayDate = DateTime.Now;
+            var range = item.EndDate - todayDate;
+            var daysRemaining = range.Days + 1;
+            if (daysRemaining <= 0)
+            {
+                daysRemaining = 0;
+            }
+
+            /* expired milestone*/
+            if (item.TotalProjectDays == 0)
+            {
+                color = "danger";
+            }
+            
+
+
+            /* display items for each model*/
+            <tr>
+                <td class="@color">
+                    <input type="checkbox" class="checkBoxId" value="@item.MilestoneId" name="milestoneID"/>
+                </td>
+                <td class="@color">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td class="@color">
+                    @Html.DisplayFor(modelItem => item.StartTimeString)
+                </td>
+
+                <td class="@color">
+                    @Html.DisplayFor(modelItem => item.EndDateString)
+                </td>
+
+                <td class="@color">
+                    @Html.DisplayFor(modelItem => item.TotalProjectDays)
+                </td>
+
+                <td class="@color">
+                    @daysRemaining
+                </td>
+
+                <td class="@color">
+                    @Html.ActionLink("Edit", "Edit", new {id = item.MilestoneId}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.MilestoneId}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.MilestoneId})
+                </td>
+            </tr>
+            color = "";
+        }
+    }
+</table>
+
+<div>
+    <p>
+        <input type="submit" form="deleteSelected" id="deleteSelected" value="Delete Selected" class="btn btn-danger" onclick="return confirm('Are you sure?')"/>
+    </p>
+
+</div>
+
+<div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <b>@TempData["Description"]</b> : <em>@TempData["Date"]</em> @TempData["SuccessMessage"]
+        </div>
+    }
+    else if (TempData["deletedMilstoneCount"] != null) {
+        <div class="alert alert-warning" role="alert">
+            Milestones deleted: <b>@TempData["deletedMilstoneCount"] </b> 
+        </div>
+    }
+    else if (TempData["NothingSelected"] != null) {
+        <div class="alert alert-danger" role="alert">
+            <b>@TempData["NothingSelected"]</b>
+        </div>
+    }
+</div>
+
