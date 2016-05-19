@@ -15,9 +15,7 @@ namespace StartingFresh.Controllers
     {
 
         private DbContextModel dbContext = new DbContextModel();
-
-
-      
+        
         // GET: Milestone
         public ActionResult Index(int? id)
         {
@@ -30,7 +28,6 @@ namespace StartingFresh.Controllers
             model.StartTimeString = "";
             model.StartTime = DateTime.Now;
             model.TotalProjectDays = 0;
-            model.ResetStartDate = false;
             
             model.Milestones = dbContext.Milestones.ToList();
 
@@ -58,7 +55,6 @@ namespace StartingFresh.Controllers
             if (ModelState.IsValid)
             {
                 // model.Description is already set
-                model.ResetStartDate = false;
 
                 model.StartTime = today;
                 model.StartTimeString = today.ToString("D");
