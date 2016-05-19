@@ -23,6 +23,7 @@ namespace StartingFresh.Controllers
         public ActionResult Index(int? id)
         {
             ViewBag.Code = 0; // nothing
+            ViewBag.Message = "Index Init";
 
             MilestoneModel model = new MilestoneModel();
             model.Description = "";
@@ -44,6 +45,8 @@ namespace StartingFresh.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Message = "Create Init";
+
             MilestoneModel model = new MilestoneModel();
 
             return View("Create");
@@ -52,6 +55,8 @@ namespace StartingFresh.Controllers
         [HttpPost]
         public ActionResult Create(MilestoneModel model)
         {
+            ViewBag.Message = "Create Post";
+
             DateTime today = DateTime.Now;
             TimeSpan range = new TimeSpan();
 
@@ -90,6 +95,8 @@ namespace StartingFresh.Controllers
         
         public ActionResult Edit(int? id)
         {
+            ViewBag.Message = "Edit Init";
+
             MilestoneModel model = dbContext.Milestones.Find(id);
            
             if (id == null)
@@ -106,6 +113,8 @@ namespace StartingFresh.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id)//, MilestoneModel newModel)
         {
+            ViewBag.Message = "Edit Post";
+
             DateTime today = DateTime.Now;
             TimeSpan range = new TimeSpan();
 
@@ -151,6 +160,8 @@ namespace StartingFresh.Controllers
         
         public ActionResult Details(int? id)
         {
+            ViewBag.Message = "Details Init";
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -166,6 +177,8 @@ namespace StartingFresh.Controllers
 
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
+            ViewBag.Message = "Delete Init";
+
             if (id== null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -181,8 +194,10 @@ namespace StartingFresh.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            try
-            {
+            ViewBag.Message = "Delete Post";
+
+
+            try {
                 MilestoneModel model = dbContext.Milestones.Find(id);
                 dbContext.Milestones.Remove(model);
                 dbContext.SaveChanges();
@@ -197,6 +212,8 @@ namespace StartingFresh.Controllers
         [HttpPost]
         public ActionResult DeleteSelected(FormCollection formCollection)
         {
+            ViewBag.Message = "Delete Selected Post";
+
             MilestoneModel model = new MilestoneModel();
             var deletedMilestones = 0;
             try
