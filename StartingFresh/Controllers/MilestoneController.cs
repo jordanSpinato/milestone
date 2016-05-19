@@ -20,7 +20,7 @@ namespace StartingFresh.Controllers
         private DbContextModel dbContext = new DbContextModel();
         
         // GET: Milestone
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? x)
         {
             ViewBag.Code = 0; // nothing
             ViewBag.Message = "Index Init";
@@ -32,7 +32,14 @@ namespace StartingFresh.Controllers
             model.StartTimeString = "";
             model.StartTime = DateTime.Now;
             model.TotalProjectDays = 0;
-            
+
+            if (x == 99)
+            {
+                ViewBag.Message = "Index Init99";
+                return View("Create");
+            }
+
+
             model.Milestones = dbContext.Milestones.ToList();
 
             if (id == null)
