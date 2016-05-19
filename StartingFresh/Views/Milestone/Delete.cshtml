@@ -2,12 +2,14 @@
 
 @{
     ViewBag.Title = "Delete";
+    ViewBag.Message = "Milestone Delete";
+
 }
 
 <h2>Delete</h2>
 
 
-@{            /* Calculate the amount of days remaining */
+@{          /* Calculate the amount of days remaining */
     var today = DateTime.Now;
     var todayDate = DateTime.Now;
     var range = Model.EndDate - todayDate;
