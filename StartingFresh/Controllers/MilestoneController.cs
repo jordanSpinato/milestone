@@ -17,7 +17,18 @@ namespace StartingFresh.Controllers
     public class MilestoneController : Controller
     {
 
-        private DbContextModel dbContext = new DbContextModel();
+        //public interface IMilestoneRepository
+        //{
+        //    List<MilestoneModel> GetAllMilestones();
+        //    MilestoneModel GetMilestoneId(int i);
+        //    void AddMilestone(MilestoneModel m); // create
+        //    void UpdateMilestone(MilestoneModel m); // edit / details
+        //    void DeleteMilestone(MilestoneModel m); // delete
+        //    void Save();
+        //}
+
+
+        public DbContextModel DbContext = new DbContextModel();
         
         // GET: Milestone
         public ActionResult Index(int? id, int? x)
@@ -39,16 +50,32 @@ namespace StartingFresh.Controllers
                 return View("Create");
             }
 
-
-            model.Milestones = dbContext.Milestones.ToList();
-
-            if (id == null)
+            try
             {
-                Console.WriteLine("NULL ID");
-                return View(model);
+                model.Milestones = DbContext.Milestones.ToList();
+
+                if (id == null)
+                {
+                    Console.WriteLine("NULL ID");
+                    return View(model);
+                }
+                return View(model); //dbContext.Milestones.ToList()); //dbContext.Milestones.ToList());
             }
-            return View(model);//dbContext.Milestones.ToList()); //dbContext.Milestones.ToList());
+
+
+            catch (Exception e)
+            {
+                Console.WriteLine("$$$$$");
+
+            }
+
+
+            return View(model); //dbContext.Milestones.ToList()); //dbContext.Milestones.ToList());
+
+
         }
+
+
 
         public ActionResult Create()
         {
@@ -91,8 +118,8 @@ namespace StartingFresh.Controllers
                 TempData["Date"] = model.EndDateString;
                 TempData["Description"] = model.Description;
 
-                dbContext.Milestones.Add(model);            
-                dbContext.SaveChanges();
+                DbContext.Milestones.Add(model);            
+                DbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -104,7 +131,7 @@ namespace StartingFresh.Controllers
         {
             ViewBag.Message = "Edit Init";
 
-            MilestoneModel model = dbContext.Milestones.Find(id);
+            MilestoneModel model = DbContext.Milestones.Find(id);
            
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -132,7 +159,7 @@ namespace StartingFresh.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            MilestoneModel databaseModel = dbContext.Milestones.Find(id);
+            MilestoneModel databaseModel = DbContext.Milestones.Find(id);
            
 
             if (TryUpdateModel(databaseModel, "", new string[] {"Description", "EndDate"}))
@@ -153,7 +180,7 @@ namespace StartingFresh.Controllers
 
                 try
                 {
-                    dbContext.SaveChanges();
+                    DbContext.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (RetryLimitExceededException)
@@ -172,7 +199,7 @@ namespace StartingFresh.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            MilestoneModel model = dbContext.Milestones.Find(id);
+            MilestoneModel model = DbContext.Milestones.Find(id);
             
 
             if (model == null)
@@ -189,7 +216,7 @@ namespace StartingFresh.Controllers
             if (id== null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            MilestoneModel model = dbContext.Milestones.Find(id);
+            MilestoneModel model = DbContext.Milestones.Find(id);
 
             if (model == null)
                 return HttpNotFound();
@@ -205,9 +232,9 @@ namespace StartingFresh.Controllers
 
 
             try {
-                MilestoneModel model = dbContext.Milestones.Find(id);
-                dbContext.Milestones.Remove(model);
-                dbContext.SaveChanges();
+                MilestoneModel model = DbContext.Milestones.Find(id);
+                DbContext.Milestones.Remove(model);
+                DbContext.SaveChanges();
             }
             catch (RetryLimitExceededException)
             {
@@ -229,11 +256,11 @@ namespace StartingFresh.Controllers
 
                 foreach (string id in idsToDelete)
                 {
-                    var deleteID = this.dbContext.Milestones.Find(int.Parse(id));
-                    this.dbContext.Milestones.Remove(deleteID);
+                    var deleteID = this.DbContext.Milestones.Find(int.Parse(id));
+                    this.DbContext.Milestones.Remove(deleteID);
                     deletedMilestones++;
 
-                    this.dbContext.SaveChanges();
+                    this.DbContext.SaveChanges();
                     TempData["deletedMilstoneCount"] = deletedMilestones;
                 }
                 return RedirectToAction("Index");
@@ -253,7 +280,7 @@ namespace StartingFresh.Controllers
         {
             if (disposing)
             {
-                dbContext.Dispose();
+                DbContext.Dispose();
             }
             base.Dispose(disposing);
         }

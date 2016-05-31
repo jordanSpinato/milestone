@@ -59,3 +59,4 @@ C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFres
 C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\Effort.xml
 C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\NMemory.xml
 C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\FakeDbSet.dll
+C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\NCrunch.Framework.dll
