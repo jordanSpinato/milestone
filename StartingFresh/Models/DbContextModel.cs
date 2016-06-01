@@ -9,30 +9,41 @@ using System.Web;
 
 namespace StartingFresh.Models
 {
-    public class DbContextModel : DbContext, IDbContextModel
+    public class DbContextModel : DbContext, IDbContext
     {
         public DbContextModel()
           : base(ConfigurationManager.ConnectionStrings["MilestoneModel"].ConnectionString)
         {
-        //    Database.SetInitializer<DbContextModel>(new DropCreateDatabaseIfModelChanges<DbContextModel>());
+           Database.SetInitializer<DbContextModel>(new DropCreateDatabaseIfModelChanges<DbContextModel>());
         }
 
         public DbContextModel(string nameOrConnectionString)
-            : base(nameOrConnectionString)
-        {
-
+          : base(ConfigurationManager.ConnectionStrings["MDB"].ConnectionString) 
+            {
+           Database.SetInitializer<DbContextModel>(new DropCreateDatabaseIfModelChanges<DbContextModel>());
         }
 
-        public IDbSet<MilestoneModel> Milestones { get; set; }
-        
+
+    public IDbSet<MilestoneModel> Milestones { get; set; }    
     }
-
-
-    public interface IDbContextModel
+    
+    public interface IDbContext
     {
         IDbSet<MilestoneModel> Milestones { get; set; }
 
+        int SaveChanges();
+
+
     }
+
+    public class ValidateDatabase<TContext> : IDatabaseInitializer<TContext> where TContext : DbContext {
+        public void InitializeDatabase(TContext context) {
+            if (!context.Database.Exists()) {
+                throw new ConfigurationErrorsException("Database does not exist");
+            }
+        }
+    }
+
 
 
 

@@ -3,6 +3,7 @@
  * */
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -17,19 +18,17 @@ namespace StartingFresh.Controllers
     public class MilestoneController : Controller
     {
 
-        //public interface IMilestoneRepository
-        //{
-        //    List<MilestoneModel> GetAllMilestones();
-        //    MilestoneModel GetMilestoneId(int i);
-        //    void AddMilestone(MilestoneModel m); // create
-        //    void UpdateMilestone(MilestoneModel m); // edit / details
-        //    void DeleteMilestone(MilestoneModel m); // delete
-        //    void Save();
-        //}
+        public virtual IDbContext DbContext { get; set; }
+        // DbContextModel DbContext = new DbContextModel();
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            DbContext = new DbContextModel();
+            base.OnActionExecuting(filterContext);
+        }
 
 
-        public DbContextModel DbContext = new DbContextModel();
-        
+
         // GET: Milestone
         public ActionResult Index(int? id, int? x)
         {
@@ -50,8 +49,10 @@ namespace StartingFresh.Controllers
                 return View("Create");
             }
 
+         
             try
             {
+                
                 model.Milestones = DbContext.Milestones.ToList();
 
                 if (id == null)
@@ -66,6 +67,7 @@ namespace StartingFresh.Controllers
             catch (Exception e)
             {
                 Console.WriteLine("$$$$$");
+                return RedirectToAction("Create");
 
             }
 
@@ -91,42 +93,58 @@ namespace StartingFresh.Controllers
         {
             ViewBag.Message = "Create Post";
 
-            DateTime today = DateTime.Now;
-            TimeSpan range = new TimeSpan();
 
-            if (ModelState.IsValid)
+            try
             {
-                // model.Description is already set
+                DateTime today = DateTime.Now;
+                TimeSpan range = new TimeSpan();
 
-                model.StartTime = today;
-                model.StartTimeString = today.ToString("D");
-
-                // model.EndDate is already set
-                model.EndDateString = model.EndDate.ToString("D");
-
-                range = model.EndDate - today;
-                var totalDays = range.Days;
-
-                model.TotalProjectDays = totalDays + 1;
-
-                if (model.TotalProjectDays <= 0)
+                if (ModelState.IsValid)
                 {
-                    model.TotalProjectDays = 0;
+                    // model.Description is already set
+
+                    model.StartTime = today;
+                    model.StartTimeString = today.ToString("D");
+
+                    // model.EndDate is already set
+                    model.EndDateString = model.EndDate.ToString("D");
+
+                    range = model.EndDate - today;
+                    var totalDays = range.Days;
+
+                    model.TotalProjectDays = totalDays + 1;
+
+                    if (model.TotalProjectDays <= 0)
+                    {
+                        model.TotalProjectDays = 0;
+                    }
+
+                    TempData["SuccessMessage"] = " has been added.";
+                    TempData["Date"] = model.EndDateString;
+                    TempData["Description"] = model.Description;
+
+                    DbContext.Milestones.Add(model);
+                    DbContext.SaveChanges();
+
+
+                    ViewBag.Message = "success";
+
+                    return RedirectToAction("Index");
                 }
 
-                TempData["SuccessMessage"] = " has been added.";
-                TempData["Date"] = model.EndDateString;
-                TempData["Description"] = model.Description;
+                return View(model);
+            }
 
-                DbContext.Milestones.Add(model);            
-                DbContext.SaveChanges();
+
+            catch (Exception e)
+            {
+                ViewBag.Message = "fail";
 
                 return RedirectToAction("Index");
             }
-
-            return View(model);
         }
-        
+
+
         public ActionResult Edit(int? id)
         {
             ViewBag.Message = "Edit Init";
@@ -280,7 +298,7 @@ namespace StartingFresh.Controllers
         {
             if (disposing)
             {
-                DbContext.Dispose();
+               // DbContext.Dispose();
             }
             base.Dispose(disposing);
         }

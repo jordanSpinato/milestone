@@ -877,7 +877,7 @@
         </member>
         <member name="T:Effort.Internal.Caching.MetadataWorkspaceStore">
             <summary>
-                Represents a cache that stores <see cref="T:System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace"/> object.
+                Represents a cache that stores <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace"/> object.
             </summary>
         </member>
         <member name="F:Effort.Internal.Caching.MetadataWorkspaceStore.store">
@@ -890,9 +890,9 @@
                 Initializes static members the <see cref="T:Effort.Internal.Caching.MetadataWorkspaceStore"/> class.
             </summary>
         </member>
-        <member name="M:Effort.Internal.Caching.MetadataWorkspaceStore.GetMetadataWorkspace(System.String,System.Func{System.String,System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace})">
+        <member name="M:Effort.Internal.Caching.MetadataWorkspaceStore.GetMetadataWorkspace(System.String,System.Func{System.String,System.Data.Metadata.Edm.MetadataWorkspace})">
             <summary>
-                Returns a <see cref="T:System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace"/> object that derived from the 
+                Returns a <see cref="T:System.Data.Metadata.Edm.MetadataWorkspace"/> object that derived from the 
                 specified metadata in order to be compatible with the Effort provider. If no 
                 such element exist, the specified factory method is used to create one.
             </summary>
@@ -1020,7 +1020,7 @@
                 Serialized form the StoreItemCollection, used as the key.
             </summary>
         </member>
-        <member name="M:Effort.Internal.Caching.DbSchemaKey.#ctor(System.Data.Entity.Core.Metadata.Edm.StoreItemCollection)">
+        <member name="M:Effort.Internal.Caching.DbSchemaKey.#ctor(System.Data.Metadata.Edm.StoreItemCollection)">
             <summary>
                 Initializes a new instance of the <see cref="T:Effort.Internal.Caching.DbSchemaKey"/> class.
             </summary>
@@ -1214,7 +1214,7 @@
             <param name="schemaKey"> The DbSchemaKey object. </param>
             <returns> The DbSchema object. </returns>
         </member>
-        <member name="M:Effort.Internal.Caching.DbSchemaStore.GetDbSchema(System.Data.Entity.Core.Metadata.Edm.StoreItemCollection,System.Func{System.Data.Entity.Core.Metadata.Edm.StoreItemCollection,Effort.Internal.DbManagement.Schema.DbSchema})">
+        <member name="M:Effort.Internal.Caching.DbSchemaStore.GetDbSchema(System.Data.Metadata.Edm.StoreItemCollection,System.Func{System.Data.Metadata.Edm.StoreItemCollection,Effort.Internal.DbManagement.Schema.DbSchema})">
             <summary>
                 Returns a <see cref="T:Effort.Internal.DbManagement.Schema.DbSchema"/> object that represents the metadata contained
                 by the specified StoreItemCollection. If no such element exist, the specified 
@@ -1235,14 +1235,14 @@
                 Providers helper method for EDM types.
             </summary>
         </member>
-        <member name="M:Effort.Internal.Common.EdmHelper.GetTableName(System.Data.Entity.Core.Metadata.Edm.EntitySetBase)">
+        <member name="M:Effort.Internal.Common.EdmHelper.GetTableName(System.Data.Metadata.Edm.EntitySetBase)">
             <summary>
                 Returns the name of the table that is represented by the specified entity set.
             </summary>
             <param name="entitySet"> The entity set. </param>
             <returns >The name of the table represented by the entity set. </returns>
         </member>
-        <member name="M:Effort.Internal.Common.EdmHelper.GetColumnName(System.Data.Entity.Core.Metadata.Edm.EdmMember)">
+        <member name="M:Effort.Internal.Common.EdmHelper.GetColumnName(System.Data.Metadata.Edm.EdmMember)">
             <summary>
                 Returns the name of the table column that is represented by the specified
                 member.
@@ -3002,7 +3002,7 @@
                 specified database.
             </summary>
         </member>
-        <member name="M:Effort.DataLoaders.EntityTableDataLoader.#ctor(System.Data.Entity.Core.EntityClient.EntityConnection,Effort.DataLoaders.TableDescription)">
+        <member name="M:Effort.DataLoaders.EntityTableDataLoader.#ctor(System.Data.EntityClient.EntityConnection,Effort.DataLoaders.TableDescription)">
             <summary>
                 Initializes a new instance of the <see cref="T:Effort.DataLoaders.EntityTableDataLoader"/> class.
             </summary>
@@ -3033,7 +3033,7 @@
                 <see cref="T:Effort.DataLoaders.EntityTableDataLoader"/> instances for tables.
             </summary>
         </member>
-        <member name="M:Effort.DataLoaders.EntityTableDataLoaderFactory.#ctor(System.Func{System.Data.Entity.Core.EntityClient.EntityConnection})">
+        <member name="M:Effort.DataLoaders.EntityTableDataLoaderFactory.#ctor(System.Func{System.Data.EntityClient.EntityConnection})">
             <summary>
                 Initializes a new instance of the <see cref="T:Effort.DataLoaders.EntityTableDataLoaderFactory"/> 
                 class.
@@ -3272,7 +3272,7 @@
             <param name="entityConnectionString"> The entity connection string. </param>
             <returns> The full entity connection string. </returns>
         </member>
-        <member name="M:Effort.EntityConnectionFactory.CreateEntityConnection(System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace,System.Data.Common.DbConnection)">
+        <member name="M:Effort.EntityConnectionFactory.CreateEntityConnection(System.Data.Metadata.Edm.MetadataWorkspace,System.Data.Common.DbConnection)">
             <summary>
                 Creates a new EntityConnection object and initializes its underlying database.
             </summary>
@@ -3825,7 +3825,7 @@
                 Create DbCommandTree objects.
             </summary>
         </member>
-        <member name="M:Effort.Internal.Common.CommandTreeBuilder.CreateSelectAll(System.Data.Entity.Core.Metadata.Edm.MetadataWorkspace,System.Data.Entity.Core.Metadata.Edm.EntitySet)">
+        <member name="M:Effort.Internal.Common.CommandTreeBuilder.CreateSelectAll(System.Data.Metadata.Edm.MetadataWorkspace,System.Data.Metadata.Edm.EntitySet)">
             <summary>
                 Creates the full database scan expression.
             </summary>
@@ -4256,7 +4256,7 @@
                 representations.
             </summary>
         </member>
-        <member name="M:Effort.Provider.EffortEntityCommand.#ctor(System.Data.Entity.Core.Common.CommandTrees.DbCommandTree)">
+        <member name="M:Effort.Provider.EffortEntityCommand.#ctor(System.Data.Common.CommandTrees.DbCommandTree)">
             <summary>
                 Initializes a new instance of the <see cref="T:Effort.Provider.EffortEntityCommand"/> class 
                 based on  a provided command tree.
@@ -5182,7 +5182,7 @@
             </summary>
             <param name="version">The version of manifest metadata.</param>
         </member>
-        <member name="M:Effort.Provider.EffortProviderManifest.GetEdmType(System.Data.Entity.Core.Metadata.Edm.TypeUsage)">
+        <member name="M:Effort.Provider.EffortProviderManifest.GetEdmType(System.Data.Metadata.Edm.TypeUsage)">
             <summary>
                 This method maps the specified storage type and a set of facets for that type
                 to an EDM type.
@@ -5196,7 +5196,7 @@
                 an EDM type and a set of facets for that type.
             </returns>
         </member>
-        <member name="M:Effort.Provider.EffortProviderManifest.GetStoreType(System.Data.Entity.Core.Metadata.Edm.TypeUsage)">
+        <member name="M:Effort.Provider.EffortProviderManifest.GetStoreType(System.Data.Metadata.Edm.TypeUsage)">
             <summary>
                 This method maps the specified EDM type and a set of facets for that type to a
                 storage type.
@@ -5249,7 +5249,7 @@
                 represents the executable command definition object.
             </returns>
         </member>
-        <member name="M:Effort.Provider.EffortProviderServices.CreateDbCommandDefinition(System.Data.Entity.Core.Common.DbProviderManifest,System.Data.Entity.Core.Common.CommandTrees.DbCommandTree)">
+        <member name="M:Effort.Provider.EffortProviderServices.CreateDbCommandDefinition(System.Data.Common.DbProviderManifest,System.Data.Common.CommandTrees.DbCommandTree)">
             <summary>
                 Creates a command definition object for the specified provider manifest and 
                 command tree.
@@ -5288,7 +5288,7 @@
                 The provider manifest token for the specified connection.
             </returns>
         </member>
-        <member name="M:Effort.Provider.EffortProviderServices.DbDatabaseExists(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Entity.Core.Metadata.Edm.StoreItemCollection)">
+        <member name="M:Effort.Provider.EffortProviderServices.DbDatabaseExists(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Metadata.Edm.StoreItemCollection)">
             <summary>
                 Returns a value indicating whether a given database exists on the server and 
                 whether schema objects contained in the storeItemCollection have been created.
@@ -5308,7 +5308,7 @@
                 <paramref name="storeItemCollection" /> parameter exists.
             </returns>
         </member>
-        <member name="M:Effort.Provider.EffortProviderServices.DbCreateDatabase(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Entity.Core.Metadata.Edm.StoreItemCollection)">
+        <member name="M:Effort.Provider.EffortProviderServices.DbCreateDatabase(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Metadata.Edm.StoreItemCollection)">
             <summary>
                 Creates a database indicated by connection and creates schema objects (tables, 
                 primary keys, foreign keys) based on the contents of a 
@@ -5325,7 +5325,7 @@
                 The collection of all store items based on which the script should be created.
             </param>
         </member>
-        <member name="M:Effort.Provider.EffortProviderServices.DbDeleteDatabase(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Entity.Core.Metadata.Edm.StoreItemCollection)">
+        <member name="M:Effort.Provider.EffortProviderServices.DbDeleteDatabase(System.Data.Common.DbConnection,System.Nullable{System.Int32},System.Data.Metadata.Edm.StoreItemCollection)">
             <summary>
                 Deletes all store objects specified in the store item collection from the 
                 database and the database itself.
@@ -5340,7 +5340,7 @@
                 The structure of the database to be deleted.
             </param>
         </member>
-        <member name="M:Effort.Provider.EffortProviderServices.DbCreateDatabaseScript(System.String,System.Data.Entity.Core.Metadata.Edm.StoreItemCollection)">
+        <member name="M:Effort.Provider.EffortProviderServices.DbCreateDatabaseScript(System.String,System.Data.Metadata.Edm.StoreItemCollection)">
             <summary>
                 Generates a data definition language (DDL0 script that creates schema objects 
                 (tables, primary keys, foreign keys) based on the contents of the 
@@ -5459,31 +5459,6 @@
             <exception cref="T:System.NotSupportedException">
                 The manifest token is not supported
             </exception>
-        </member>
-        <member name="T:Effort.Provider.EffortProviderInvariantName">
-            <summary>
-            Provides the invariant name of the Effort provider.
-            </summary>
-        </member>
-        <member name="F:Effort.Provider.EffortProviderInvariantName.Instance">
-            <summary>
-                Provides a singleton instance of the <see cref="T:Effort.Provider.EffortProviderInvariantName"/>
-                class.
-            </summary>
-        </member>
-        <member name="M:Effort.Provider.EffortProviderInvariantName.#ctor">
-            <summary>
-            Prevents a default instance of the <see cref="T:Effort.Provider.EffortProviderInvariantName"/> class 
-            from being created.
-            </summary>
-        </member>
-        <member name="P:Effort.Provider.EffortProviderInvariantName.Name">
-            <summary>
-            Gets the invariant name of the Effort provider.
-            </summary>
-            <value>
-            The invariant name.
-            </value>
         </member>
     </members>
 </doc>
