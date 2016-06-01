@@ -211,6 +211,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DbContextModel.cs" />
+    <Compile Include="Models\EFMilestoneRepository.cs" />
+    <Compile Include="Models\IMilestoneRepository.cs" />
     <Compile Include="Models\MilestoneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

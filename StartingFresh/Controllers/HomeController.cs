@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,7 +10,7 @@ namespace StartingFresh.Controllers
 {
     public class HomeController : Controller
     {
-        public IDbContext Database { get; set; }
+       // public DbContext Database { get; set; }
 
         public ActionResult Index()
         {

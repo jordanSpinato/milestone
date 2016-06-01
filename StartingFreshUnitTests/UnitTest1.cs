@@ -106,7 +106,7 @@ namespace StartingFresh.Tests.Controllers {
         public void Details_Returns_ActionResult() {
             var controller = new MilestoneController();
 
-            var actual = controller.Details(1);
+            var actual = controller.Details(2);
 
             Assert.IsInstanceOf<ActionResult>(actual);
 
@@ -116,7 +116,7 @@ namespace StartingFresh.Tests.Controllers {
         public void Delete_Returns_ActionResult() {
             var controller = new MilestoneController();
 
-            var actual = controller.Create();
+            var actual = controller.Delete(1);
 
             Assert.IsInstanceOf<ActionResult>(actual);
 

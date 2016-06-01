@@ -1,5 +1,13 @@
 ﻿/*
  * Author: jordan@enteracloud.com
+ * 
+ * 
+ * 
+ * For Better testing I will remove database access
+ *  Implement: 
+ *  1- Repositories
+ *  2- Mocks
+ *  3- Dependency Injection 
  * */
 using System;
 using System.Collections.Generic;
@@ -18,7 +26,8 @@ namespace StartingFresh.Controllers
     public class MilestoneController : Controller
     {
 
-        public virtual IDbContext DbContext { get; set; }
+        public DbContextModel DbContext { get; set; }
+
         // DbContextModel DbContext = new DbContextModel();
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

@@ -9,6 +9,30 @@ using System.Web;
 
 namespace StartingFresh.Models
 {
+
+
+    // V1
+    public class DbContextModel : DbContext
+    {
+
+        public DbContextModel()
+            : base(ConfigurationManager.ConnectionStrings["MilestoneModel"].ConnectionString)
+        {
+            Database.SetInitializer<DbContextModel>(new DropCreateDatabaseIfModelChanges<DbContextModel>());
+        }
+
+        public DbSet<MilestoneModel> Milestones { get; set; }
+    }
+
+    
+
+
+
+
+
+
+    /*
+    // V2
     public class DbContextModel : DbContext, IDbContext
     {
         public DbContextModel()
@@ -66,7 +90,8 @@ namespace StartingFresh.Models
 
     }
 
-    */
+       */
 
 
-}
+
+        }
