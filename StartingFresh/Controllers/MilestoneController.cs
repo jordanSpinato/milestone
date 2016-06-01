@@ -31,16 +31,22 @@ namespace StartingFresh.Controllers
         private DbContextModel DbContext = new DbContextModel();
         private IMilestoneRepository milestoneRepo;
 
-        //create constructor for the property for the milestone Repo
-        public MilestoneController()
-        {
+
+        public MilestoneController() {
             this.milestoneRepo = new EfMilestoneRepository();
+        }
+
+
+        //create constructor for the property for the milestone Repo
+        public MilestoneController(IMilestoneRepository milestoneRepo)
+        {
+            this.milestoneRepo = milestoneRepo;
         }
             
 
 
         // GET: Milestone
-        public ActionResult Index(int? id, int? x)
+        public ViewResult Index(int? id, int? x)
         {
             ViewBag.Code = 0; // nothing
             ViewBag.Message = "Index Init";
@@ -77,7 +83,7 @@ namespace StartingFresh.Controllers
             catch (Exception e)
             {
                 Console.WriteLine("$$$$$");
-                return RedirectToAction("Create");
+               // return RedirectToAction("Create");
 
             }
 

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using NUnit.Framework;
 using StartingFresh;
 using StartingFresh.Controllers;
@@ -56,73 +58,27 @@ namespace StartingFresh.Tests.Controllers {
     [TestFixture]
     public class MilestoneControllerTest
     {
-
         [Test]
-        public void Display_Create_Page()
+        public void MilestoneIndex_Contains_ListOfMilestones_Model()
         {
-            // arrange
-            MilestoneController controller = new MilestoneController();
+            //Arrange
+            Mock<IMilestoneRepository> mock = new Mock<IMilestoneRepository>();
 
-            // act
-            ViewResult result = controller.Create() as ViewResult;
+            // call to milestone method return this stuff here :::: Doesnt go to DB just returns this 
+            mock.Setup(m => m.Milestones).Returns(new MilestoneModel[]
+            {
+                new MilestoneModel {MilestoneId = 1, Description = "UNIT_TEST", EndDate = DateTime.Today}
+            }.AsQueryable());
 
-            //assert
-            Assert.AreEqual("Create Init", result.ViewBag.Message);
-        }
+            MilestoneController controller = new MilestoneController(mock.Object);
 
+            // Act
+            var actual = (List<MilestoneModel>) controller.Index(1, 1).Model;
 
-        [Test]
-        public void Create_Returns_ActionResult()
-        {
-            var controller = new MilestoneController();
-
-            var actual = controller.Create();
-
-            Assert.IsInstanceOf<ActionResult>(actual);
+            //Assert
+            Assert.IsInstanceOf<List<MilestoneModel>>(actual);
 
         }
-
-        [Test]
-        public void Index_Returns_ActionResult() {
-            var controller = new MilestoneController();
-
-            var actual = controller.Index(1,1);
-
-            Assert.IsInstanceOf<ActionResult>(actual);
-
-        }
-
-        [Test]
-        public void Edit_Returns_ActionResult() {
-            var controller = new MilestoneController();
-
-            var actual = controller.Edit(1);
-
-            Assert.IsInstanceOf<ActionResult>(actual);
-
-        }
-
-        [Test]
-        public void Details_Returns_ActionResult() {
-            var controller = new MilestoneController();
-
-            var actual = controller.Details(2);
-
-            Assert.IsInstanceOf<ActionResult>(actual);
-
-        }
-
-        [Test]
-        public void Delete_Returns_ActionResult() {
-            var controller = new MilestoneController();
-
-            var actual = controller.Delete(1);
-
-            Assert.IsInstanceOf<ActionResult>(actual);
-
-        }
-
-
 
 
 
