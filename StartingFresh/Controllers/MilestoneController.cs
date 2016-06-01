@@ -26,16 +26,17 @@ namespace StartingFresh.Controllers
     public class MilestoneController : Controller
     {
 
-        public DbContextModel DbContext { get; set; }
+        //public DbContextModel DbContext { get; set; }
 
-        // DbContextModel DbContext = new DbContextModel();
+        private DbContextModel DbContext = new DbContextModel();
+        private IMilestoneRepository milestoneRepo;
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        //create constructor for the property for the milestone Repo
+        public MilestoneController()
         {
-            DbContext = new DbContextModel();
-            base.OnActionExecuting(filterContext);
+            this.milestoneRepo = new EfMilestoneRepository();
         }
-
+            
 
 
         // GET: Milestone
@@ -62,7 +63,7 @@ namespace StartingFresh.Controllers
             try
             {
                 
-                model.Milestones = DbContext.Milestones.ToList();
+                model.Milestones = milestoneRepo.Milestones.ToList();
 
                 if (id == null)
                 {
