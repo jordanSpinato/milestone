@@ -55,14 +55,16 @@ namespace StartingFresh.Controllers
             ViewBag.DescriptionSortParam = sortOrder == "Date_desc";
             ViewBag.StartDateSort = sortOrder == "StartDate_desc";
             ViewBag.EndDateSort = sortOrder == "EndDate_desc";
-
+            
             model.Milestones = milestoneRepo.Milestones.ToList();
+
 
             ViewBag.CurrentFilter = searchString;
 
+            // Check for a string to search and display the results. Not case sensitive
             if (!String.IsNullOrEmpty(searchString)) 
-            { 
-                model.Milestones = model.Milestones.Where(s => s.Description.Contains(searchString));
+            {
+                model.Milestones = model.Milestones.Where(s => s.Description.ToLower().Contains(searchString.ToLower()));
             }
 
 

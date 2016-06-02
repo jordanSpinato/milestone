@@ -11,20 +11,24 @@
     ViewBag.Title = "Milestones";
     ViewBag.Page = "Milestone Index";
 }
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
 <h2>Milestone List</h2>
 
 <div>
     @Html.ActionLink("Create New", "Create")
 </div>
 
-
 @using (Html.BeginForm("Index", "Milestone", FormMethod.Get)) {
 
     <p>
-        Search by Description: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Search by Description:
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+
         <input type="submit" value="Search"/>
+        @Html.ActionLink("List All", "Index")
     </p>
+
+
 }
 
 
