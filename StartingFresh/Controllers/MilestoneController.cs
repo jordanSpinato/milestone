@@ -53,9 +53,11 @@ namespace StartingFresh.Controllers
             MilestoneModel model = new MilestoneModel();
 
             ViewBag.DescriptionSortParam = sortOrder == "Date_desc";
-            ViewBag.StartDateSort = sortOrder == "StartDate_desc";
-            ViewBag.EndDateSort = sortOrder == "EndDate_desc";
-            
+            ViewBag.StartDateSortParam = sortOrder == "StartDate_desc";
+            ViewBag.EndDateSortParam   = sortOrder == "EndDate_desc";
+            ViewBag.ProjectDaysSortParam = sortOrder == "ProjectDays_desc";
+            ViewBag.DaysRemainingSortParam = sortOrder == "DaysRemaining_desc";
+
             model.Milestones = milestoneRepo.Milestones.ToList();
 
 

@@ -58,19 +58,24 @@
             <input type="checkbox" id="checkBoxAll"/>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.ActionLink("Description", "Index", new {sortOrder = ViewBag.DescriptionSortParam, currentFilter = ViewBag.CurrentFilter})
+            @*@Html.DisplayNameFor(model => model.Description)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartTime)
+            @Html.ActionLink("Start Time", "Index", new { sortOrder = ViewBag.StartDateSortParam, currentFilter = ViewBag.CurrentFilter })
+            @*@Html.DisplayNameFor(model => model.StartTime)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.ActionLink("End Time", "Index", new { sortOrder = ViewBag.EndDateSortParam, currentFilter = ViewBag.CurrentFilter })
+            @*@Html.DisplayNameFor(model => model.EndDate)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalProjectDays)
+            @Html.ActionLink("Total Project Days", "Index", new { sortOrder = ViewBag.ProjectDaysSortParam, currentFilter = ViewBag.CurrentFilter })
+            @*@Html.DisplayNameFor(model => model.TotalProjectDays)*@
         </th>
         <th>
-            Days Remaining
+            @Html.ActionLink("Days Remaining", "Index", new { sortOrder = ViewBag.DaysRemainingSortParam, currentFilter = ViewBag.CurrentFilter })
+            @*Days Remaining*@
         </th>
         <th>
             Other Options
