@@ -23,6 +23,8 @@ using FormCollection = System.Web.Mvc.FormCollection;
 
 namespace StartingFresh.Controllers
 {
+    /* this is a different branch */
+
     public class MilestoneController : Controller
     {
 
@@ -54,16 +56,13 @@ namespace StartingFresh.Controllers
            ViewBag.StartDateSort = sortOrder == "StartDate_desc";
            ViewBag.EndDateSort   = sortOrder == "EndDate_desc";
             
-            try
-            {
+           
                 model.Milestones = milestoneRepo.Milestones.ToList();
-            }
             
-            catch (Exception e)
-            {
-                return RedirectToAction("Create");
+            
+           
 
-            }
+            
             return View(model);//milestoneRepo.Milestones.ToList()); //model); 
 
         }
