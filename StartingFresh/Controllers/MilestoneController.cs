@@ -46,50 +46,25 @@ namespace StartingFresh.Controllers
 
 
         // GET: Milestone
-        public ViewResult Index(int? id, int? x)
+        public ActionResult Index(string sortOrder)//int? id, int? x)
         {
-            ViewBag.Code = 0; // nothing
-            ViewBag.Message = "Index Init";
-
             MilestoneModel model = new MilestoneModel();
-            model.Description = "";
-            model.EndDateString = "";
-            model.EndDate = DateTime.Now;
-            model.StartTimeString = "";
-            model.StartTime = DateTime.Now;
-            model.TotalProjectDays = 0;
 
-            if (x == 99)
-            {
-                ViewBag.Message = "Index Init99";
-                return View("Create");
-            }
-
-         
+           ViewBag.DescriptionSortParam = sortOrder == "Date_desc";
+           ViewBag.StartDateSort = sortOrder == "StartDate_desc";
+           ViewBag.EndDateSort   = sortOrder == "EndDate_desc";
+            
             try
             {
-                
                 model.Milestones = milestoneRepo.Milestones.ToList();
-
-                if (id == null)
-                {
-                    Console.WriteLine("NULL ID");
-                    return View(model);
-                }
-                return View(model); //dbContext.Milestones.ToList()); //dbContext.Milestones.ToList());
             }
-
-
+            
             catch (Exception e)
             {
-                Console.WriteLine("$$$$$");
-               // return RedirectToAction("Create");
+                return RedirectToAction("Create");
 
             }
-
-
-            return View(model); //dbContext.Milestones.ToList()); //dbContext.Milestones.ToList());
-
+            return View(model);//milestoneRepo.Milestones.ToList()); //model); 
 
         }
 

@@ -8,6 +8,7 @@ using StartingFresh.Models;
 
 namespace StartingFresh.Models
 {
+    // 1 - create repository
     public class EfMilestoneRepository : IMilestoneRepository
     {
         DbContextModel context = new DbContextModel();

@@ -77,3 +77,5 @@ C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFres
 C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\xunit.core.xml
 C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\xunit.execution.desktop.pdb
 C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\xunit.execution.desktop.xml
+C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\Ninject.dll
+C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\Ninject.xml
