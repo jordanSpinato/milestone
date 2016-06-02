@@ -30,7 +30,7 @@ namespace StartingFresh.Models
 
         public int TotalProjectDays { get; set; }
 
-        public ICollection<MilestoneModel> Milestones { get; set; }
+        public IEnumerable<MilestoneModel> Milestones { get; set; }
 
     }
 }

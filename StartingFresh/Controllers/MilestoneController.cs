@@ -48,22 +48,28 @@ namespace StartingFresh.Controllers
 
 
         // GET: Milestone
-        public ActionResult Index(string sortOrder)//int? id, int? x)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter) //int? id, int? x)
         {
             MilestoneModel model = new MilestoneModel();
 
-           ViewBag.DescriptionSortParam = sortOrder == "Date_desc";
-           ViewBag.StartDateSort = sortOrder == "StartDate_desc";
-           ViewBag.EndDateSort   = sortOrder == "EndDate_desc";
-            
-           
-                model.Milestones = milestoneRepo.Milestones.ToList();
-            
-            
-           
+            ViewBag.DescriptionSortParam = sortOrder == "Date_desc";
+            ViewBag.StartDateSort = sortOrder == "StartDate_desc";
+            ViewBag.EndDateSort = sortOrder == "EndDate_desc";
 
-            
-            return View(model);//milestoneRepo.Milestones.ToList()); //model); 
+            model.Milestones = milestoneRepo.Milestones.ToList();
+
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString)) 
+            { 
+                model.Milestones = model.Milestones.Where(s => s.Description.Contains(searchString));
+            }
+
+
+
+
+
+    return View(model);//milestoneRepo.Milestones.ToList()); //model); 
 
         }
 

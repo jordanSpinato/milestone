@@ -19,6 +19,16 @@
 </div>
 
 
+@using (Html.BeginForm("Index", "Milestone", FormMethod.Get)) {
+
+    <p>
+        Search by Description: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search"/>
+    </p>
+}
+
+
+
 
 <table class="table table-striped">
 

@@ -79,3 +79,7 @@ C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFres
 C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\xunit.execution.desktop.xml
 C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\Ninject.dll
 C:\Users\jordan\Documents\Visual Studio 2015\Projects\StartingFresh\StartingFresh\bin\Ninject.xml
+C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\PagedList.dll
+C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\PagedList.Mvc.dll
+C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\PagedList.xml
+C:\Users\jordan\documents\visual studio 2015\Projects\StartingFresh\StartingFresh\bin\PagedList.Mvc.xml
