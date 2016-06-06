@@ -12,7 +12,27 @@
     ViewBag.Page = "Milestone Index";
 }
 @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+<script type="text/javascript" src="~/Scripts/jqueryTableSorter.js"></script>
+
+<style type="text/css">
+    .ascending a {
+        background:url(~/Images/up.png) right no-repeat;
+        display:block;
+        padding: 0 25px 0 5px;
+    }
+    .descending a {
+        background:url(~/Images/down.png) right no-repeat;
+        display:block;
+        padding: 0 25px 0 5px;
+    }
+
+</style>
+
 <h2>Milestone List</h2>
+<p>
+    <div class="arrow-up"></div>
+
+</p>
 
 <div>
     @Html.ActionLink("Create New", "Create")
@@ -32,22 +52,20 @@
 }
 
 
-
-
 <table class="table table-striped">
 
     <tr>
         <th>
             <script src="~/Scripts/jquery.js"></script>
             <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#checkBoxAll').click(function(event) { //on click
+                $(document).ready(function () {
+                    $('#checkBoxAll').click(function (event) { //on click
                         if (this.checked) { // check select status
-                            $('.checkBoxId').each(function() { //loop through each checkbox
+                            $('.checkBoxId').each(function () { //loop through each checkbox
                                 this.checked = true; //select all checkboxes with class "checkbox1"
                             });
                         } else {
-                            $('.checkBoxId').each(function() { //loop through each checkbox
+                            $('.checkBoxId').each(function () { //loop through each checkbox
                                 this.checked = false; //deselect all checkboxes with class "checkbox1"
                             });
                         }
@@ -55,11 +73,15 @@
                 });
             </script>
 
-            <input type="checkbox" id="checkBoxAll"/>
+            <input type="checkbox" id="checkBoxAll" />
         </th>
+
+
         <th>
-            @Html.ActionLink("Description", "Index", new {sortOrder = ViewBag.DescriptionSortParam, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParam, currentFilter = ViewBag.CurrentFilter })
             @*@Html.DisplayNameFor(model => model.Description)*@
+
+
         </th>
         <th>
             @Html.ActionLink("Start Time", "Index", new { sortOrder = ViewBag.StartDateSortParam, currentFilter = ViewBag.CurrentFilter })
@@ -82,37 +104,35 @@
         </th>
     </tr>
 
-    @using (Html.BeginForm("DeleteSelected", "Milestone", FormMethod.Post, new {id= "deleteSelected"}))
-    {
+    @using (Html.BeginForm("DeleteSelected", "Milestone", FormMethod.Post, new { id = "deleteSelected" })) {
 
 
-        foreach (var item in Model.Milestones)
-        {
+        foreach (var item in Model.Milestones) {
             /* calculate the amount of days remaining */
             var color = "";
             var today = DateTime.Now;
             var todayDate = DateTime.Now;
             var range = item.EndDate - todayDate;
             var daysRemaining = range.Days + 1;
-            if (daysRemaining <= 0)
-            {
+            //item.DaysRemaining = daysRemaining; leave out. Access days remaining from Database
+            if (daysRemaining <= 0) {
                 daysRemaining = 0;
+                item.DaysRemaining = daysRemaining;
                 color = "danger";
             }
 
             /* expired milestone*/
-            if (item.TotalProjectDays == 0)
-            {
+            if (item.TotalProjectDays == 0) {
                 color = "danger";
             }
-           
+
 
 
 
             /* display items for each model*/
             <tr>
                 <td class="@color">
-                    <input type="checkbox" class="checkBoxId" value="@item.MilestoneId" name="milestoneID"/>
+                    <input type="checkbox" class="checkBoxId" value="@item.MilestoneId" name="milestoneID" />
                 </td>
                 <td class="@color">
                     @Html.DisplayFor(modelItem => item.Description)
@@ -131,19 +151,24 @@
                 </td>
 
                 <td class="@color">
-                    @daysRemaining
+                    @*@daysRemaining*@
+                    @Html.DisplayFor(modelItem => item.DaysRemaining)
+
+
                 </td>
 
                 <td class="@color">
-                    @Html.ActionLink("Edit", "Edit", new {id = item.MilestoneId}) |
-                    @Html.ActionLink("Details", "Details", new {id = item.MilestoneId}) |
-                    @Html.ActionLink("Delete", "Delete", new {id = item.MilestoneId})
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MilestoneId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MilestoneId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MilestoneId })
                 </td>
             </tr>
             color = "";
         }
     }
 </table>
+
+
 
 <div>
     <p>

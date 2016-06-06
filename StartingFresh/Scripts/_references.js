@@ -7,6 +7,7 @@
 /// <reference path="jquery-1.10.2.js" />
 /// <reference path="jquerydatepick.js" />
 /// <reference path="jqueryplugin.js" />
+/// <reference path="jquerytablesorter.js" />
 /// <reference path="jquery-ui.js" />
 /// <reference path="modernizr-2.6.2.js" />
 /// <reference path="respond.js" />

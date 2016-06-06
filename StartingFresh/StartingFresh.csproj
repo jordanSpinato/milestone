@@ -228,6 +228,9 @@
     <Compile Include="Models\IMilestoneRepository.cs" />
     <Compile Include="Models\MilestoneModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Images\down.png" />
+    <Content Include="Images\up.png" />
+    <Content Include="Scripts\jqueryTableSorter.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

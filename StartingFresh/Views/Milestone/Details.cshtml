@@ -14,7 +14,7 @@
     var today = DateTime.Now;
     var todayDate = DateTime.Now;
     var range = Model.EndDate - todayDate;
-    var daysRemaining = range.Days+1;
+    var daysRemaining = Model.DaysRemaining;// range.Days+1; leave out and access it from the database instead
     if (daysRemaining <= 0)
     {
         daysRemaining = 0;
@@ -71,7 +71,10 @@
         </dt>
 
         <dd>
-            <b>@daysRemaining</b>
+            <b>
+                @Html.DisplayFor(model => model.DaysRemaining)
+                @*@daysRemaining*@
+            </b>
         </dd>
 
         <dt>

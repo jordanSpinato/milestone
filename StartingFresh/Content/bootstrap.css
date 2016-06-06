@@ -6814,3 +6814,50 @@ td.visible-print {
     display: none !important;
   }
 }
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  
+  border-bottom: 2px solid black;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+  border-top: 20px solid #f00;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  
+  border-left: 60px solid green;
+}
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  
+  border-right:10px solid blue; 
+}
+
+.ascending a {
+        background:url(~/Images/up.png) right no-repeat;
+        display:block;
+        padding: 0 25px 0 5px;
+    }
+    .descending a {
+        background:url(~/Images/down.png) right no-repeat;
+        display:block;
+        padding: 0 25px 0 5px;
+    }

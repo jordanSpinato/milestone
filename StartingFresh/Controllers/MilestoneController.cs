@@ -10,6 +10,7 @@
  *  3- Dependency Injection 
  * */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -18,6 +19,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Windows.Forms;
+using NMemory.Linq;
 using StartingFresh.Models;
 using FormCollection = System.Web.Mvc.FormCollection;
 
@@ -52,15 +54,41 @@ namespace StartingFresh.Controllers
         {
             MilestoneModel model = new MilestoneModel();
 
-            ViewBag.DescriptionSortParam = sortOrder == "Date_desc";
-            ViewBag.StartDateSortParam = sortOrder == "StartDate_desc";
-            ViewBag.EndDateSortParam   = sortOrder == "EndDate_desc";
-            ViewBag.ProjectDaysSortParam = sortOrder == "ProjectDays_desc";
-            ViewBag.DaysRemainingSortParam = sortOrder == "DaysRemaining_desc";
+            // if sortOrder == 'Description' then set viewbag.descriptionSortParam to 'description_desc' else set viewbag.DescriptionSortParam to 'description'
+            ViewBag.EndDateSortParam = String.IsNullOrEmpty(sortOrder) ? "endDate_desc" : "";
+            ViewBag.DescriptionSortParam = sortOrder == "Description" ? "description_desc" : "Description";
+            ViewBag.StartDateSortParam = sortOrder == "StartDate" ? "startDate_desc" : "StartDate";
+            ViewBag.ProjectDaysSortParam = sortOrder == "ProjectDays" ? "projectDays_desc" : "ProjectDays";
+            ViewBag.DaysRemainingSortParam = sortOrder == "DaysRemaining" ? "daysRemaining_desc" : "DaysRemaining";
 
-            model.Milestones = milestoneRepo.Milestones.ToList();
+            model.Milestones = milestoneRepo.Milestones.ToList(); // pulls from database
+
+            var query = from s in milestoneRepo.Milestones select s;
+
+            foreach (var item in query)
+            {
+                var updatedModel = DbContext.Milestones.Single((x => x.MilestoneId == item.MilestoneId));
+                var todayDate = DateTime.Now;
+                var range = item.EndDate - todayDate;
+                var daysLeft = range.Days + 1;
 
 
+                updatedModel.DaysRemaining = daysLeft;
+                model.DaysRemaining = updatedModel.DaysRemaining;
+
+                DbContext.SaveChanges();
+            }
+
+
+            try
+            {
+                DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRRRR");
+            }
+        
             ViewBag.CurrentFilter = searchString;
 
             // Check for a string to search and display the results. Not case sensitive
@@ -69,7 +97,38 @@ namespace StartingFresh.Controllers
                 model.Milestones = model.Milestones.Where(s => s.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-
+            switch (sortOrder) {
+                case "Description":
+                    model.Milestones = model.Milestones.OrderBy(s => s.Description);
+                    break;
+                case "description_desc":
+                    model.Milestones = model.Milestones.OrderByDescending(s => s.Description);
+                    break;
+                case "StartDate":
+                    model.Milestones = model.Milestones.OrderBy(s => s.StartTimeString);
+                    break;
+                case "startDate_desc":
+                    model.Milestones = model.Milestones.OrderByDescending(s => s.StartTimeString);
+                    break;
+                case "ProjectDays":
+                    model.Milestones = model.Milestones.OrderBy(s => s.TotalProjectDays);
+                    break;
+                case "projectDays_desc":
+                    model.Milestones = model.Milestones.OrderByDescending(s => s.TotalProjectDays);
+                    break;
+                case "DaysRemaining":
+                    model.Milestones = model.Milestones.OrderBy(s => s.DaysRemaining);
+                    break;
+                case "daysRemaining_desc":
+                    model.Milestones = model.Milestones.OrderByDescending(s => s.DaysRemaining);
+                    break;
+                case "endDate_desc":
+                    model.Milestones = model.Milestones.OrderByDescending(s => s.EndDateString);
+                    break;
+                default:
+                    model.Milestones = model.Milestones.OrderBy(s => s.EndDateString);
+                    break;
+            }
 
 
 
@@ -96,6 +155,8 @@ namespace StartingFresh.Controllers
 
             try
             {
+                DateTime yesterday = new DateTime(2016, 6, 2);
+
                 DateTime today = DateTime.Now;
                 TimeSpan range = new TimeSpan();
 
@@ -104,6 +165,7 @@ namespace StartingFresh.Controllers
                     // model.Description is already set
 
                     model.StartTime = today;
+
                     model.StartTimeString = today.ToString("D");
 
                     // model.EndDate is already set
@@ -113,6 +175,7 @@ namespace StartingFresh.Controllers
                     var totalDays = range.Days;
 
                     model.TotalProjectDays = totalDays + 1;
+                    model.DaysRemaining = totalDays + 1;
 
                     if (model.TotalProjectDays <= 0)
                     {
@@ -189,6 +252,11 @@ namespace StartingFresh.Controllers
                 var totalDays = range.Days;
 
                 databaseModel.TotalProjectDays = totalDays + 1;
+                var daysLeft = range.Days + 1;
+
+                databaseModel.DaysRemaining = daysLeft;
+
+                DbContext.SaveChanges();
 
                 if (databaseModel.TotalProjectDays <= 0)
                 {

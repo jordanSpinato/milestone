@@ -29,6 +29,7 @@ namespace StartingFresh.Models
         public string StartTimeString { get; set; }
 
         public int TotalProjectDays { get; set; }
+        public int DaysRemaining { get; set; }
 
         public IEnumerable<MilestoneModel> Milestones { get; set; }
 
